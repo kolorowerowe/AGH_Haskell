@@ -2,6 +2,7 @@ module Kolos where
 
 import Data.List
 
+
 data Pizza = Pizza {
 	pizzaId :: Int,
 	pizzaName :: String,
@@ -76,10 +77,39 @@ reduceBy1 :: Num t => ([([Char], t)] -> Char -> [([Char], t)]) -> [([Char], t)]
 -- reduceBy2 :: Num a => (Set a1 -> a -> Set a1) -> Set a1
 -- tutaj wszystko jest w komentarzach, bo importowanie biblioteki Data.Set daje kolejne funkcje filter i foldl, których używaliśmy wcześniej i kompilator nie wie których ma użyć. Przetestowałem to rozwiązanie w osobnym pliku.
 
+
 -- 10 zadanie 
 join :: [Pizza] -> [Topping] -> [PizzaWithToppings]
 join pizzaList toppingList = map (\(Pizza id n p s ) -> (PizzaWithToppings (Pizza id n p s ) (findById toppingList id) ) ) pizzaList
 
+
+-- 11 zadanie 
+
+
+-- 12 zadanie 
+
+
+-- 13 zadanie 
+
+
+-- 14 zadanie 
+showToppings :: [Topping] -> String
+showToppings toppings =  foldr (\a acc-> a ++ ", " ++ acc) "" (map (\(Topping _ name _ _) -> name ) toppings)
+
+instance Show PizzaWithToppings where
+	show (PizzaWithToppings (Pizza i n p s) toppings ) = "Pizza: \n" ++ n ++ ", "++ show s ++"cm, " ++ show p ++ "zl\n skladniki: " ++ showToppings toppings ++ "\n"
+
+
+createMenu :: [Pizza] -> [Topping] -> [String]
+createMenu pizzaList toppingList =  zipWith (\a b -> show a ++ ". " ++ show b) [1,2..] (join pizzaList toppingList)
+
+-- 15 zadanie 
+
+
+-- 16 zadanie 
+
+
+-- 17 zadanie 
 
 
 
@@ -90,7 +120,7 @@ pizzas :: [Pizza]
 pizzas = [Pizza 26543 "Pleisticenska" 32.8 42, Pizza 33596 "Kebab" 29.9 42]
 
 toppings :: [Topping]
-toppings = [Topping 33596 "Ser Mozarella" False ["Laktoza", "Mleko"], Topping 26543 "Zielone Soczyste Brokuły" True []]
+toppings = [Topping 33596 "Ser Mozarella" False ["Laktoza", "Mleko"], Topping 26543 "Zielone Soczyste Brokuly" True []]
 
 
 
@@ -102,8 +132,7 @@ toppings = [Topping 33596 "Ser Mozarella" False ["Laktoza", "Mleko"], Topping 26
 instance Show Pizza where
 	show (Pizza i n p s) =  n ++ ", id: " ++ show i
 
-instance Show PizzaWithToppings where
-	show (PizzaWithToppings pizza topping) = "PIZZA: " ++ show pizza ++ " ZE SKŁADNIKAMI: " ++ show topping
+
 
 
 
